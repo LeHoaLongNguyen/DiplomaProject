@@ -11,7 +11,7 @@ Password: Manager@test.com
 
 Access Steps:
 
-1.Open your preferred web browser.
+1.Open your preferred web browser.<br>
 2. Visit our website's login page.
 3. Locate the "Sign In" or "Login" button/link and click on it.
 4. On the login page, enter the following account credentials:
