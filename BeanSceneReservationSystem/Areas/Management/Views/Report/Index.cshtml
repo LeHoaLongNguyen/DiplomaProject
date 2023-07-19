@@ -1,0 +1,140 @@
+﻿@model List<Reservation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div style="display: flex; flex-direction: column; align-items: center; width: 100vh;height:80vh;">
+    <h1 style="font-family: Arial, sans-serif; font-size: 24px; font-weight: bold;">Reports</h1>
+    <div id="piechart" style="width: 900px; height: 100%;"></div>
+    <div id="chart_div" style="width: 100%; height: 100%;"></div>
+</div>
+
+@{
+    int cancelled = 0;
+    int confirmed = 0;
+    int pending = 0;
+    int altered = 0;
+    int completed = 0;
+    int seated = 0;
+
+    foreach (var r in Model)
+    {
+        switch (r.ReservationStatus.Name)
+        {
+            case "Cancelled":
+                cancelled++;
+                break;
+            case "Confirmed":
+                confirmed++;
+                break;
+            case "Pending":
+                pending++;
+                break;
+            case "Altered":
+                altered++;
+                break;
+            case "Completed":
+                completed++;
+                break;
+            case "Seated":
+                seated++;
+                break;
+        }
+    }
+    int online = 0;
+    int email = 0;
+    int inPerson= 0;
+    int phone= 0;
+    foreach(var r in Model)
+    {
+        switch (r.ReservationSource.Name)
+        {
+            case "Online":
+                online++;
+                break;
+            case "Email":
+                email++;
+                break;
+            case "In Person":
+                inPerson++;
+                break;
+            case "Phone":
+                phone++;
+                break;
+        }
+    }
+}
+
+<style>
+    .p{
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        font-weight: normal;
+    }
+    .h1{
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Reservations Statuses'],
+            ['Seated', @seated],
+            ['Cancelled', @cancelled],
+            ['Pending', @pending],
+            ['Confirmed', @confirmed],
+            ['Altered', @altered]
+        ]);
+
+        var options = {
+            title: 'Reservations Status'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+</script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawMaterial);
+
+    function drawMaterial() {
+        var data = google.visualization.arrayToDataTable([
+            ['Source', 'Reservations'],
+            ['Online', @online],
+            ['Email', @email],
+            ['In Person', @inPerson],
+            ['Phone', @phone],
+          
+        ]);
+
+        var materialOptions = {
+            chart: {
+                title: 'Sources of Reservations Booked'
+            },
+            hAxis: {
+                title: 'Total Population',
+                minValue: 0,
+            },
+            vAxis: {
+                title: 'City'
+            },
+            bars: 'horizontal'
+        };
+        var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
+        materialChart.draw(data, materialOptions);
+    }
+</script>
+
+

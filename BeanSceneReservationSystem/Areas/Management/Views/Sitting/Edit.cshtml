@@ -1,0 +1,99 @@
+﻿@model SittingCreateVM
+@{
+    ViewData["Title"] = "EditSitting";
+}
+
+<style>
+    .form-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+    }
+
+        .form-container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="datetime-local"],
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+            .form-container input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+    .field-validation-error {
+        color: #dc3545;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="form-container">
+    <h1>Edit Sitting</h1>
+    <form asp-action="Edit" asp-controller="Sitting" asp-area="Management" id="editForm">
+
+        <div>
+            <label asp-for="Name">Name:</label>
+            <input asp-for="Name" placeholder="Please enter Sitting name" required />
+            <span asp-validation-for="Name" class="field-validation-error"></span>
+        </div>
+
+        <div>
+            <label asp-for="Capacity">Capacity:</label>
+            <input asp-for="Capacity" placeholder="Please enter Capacity" required />
+            <span asp-validation-for="Capacity" class="field-validation-error"></span>
+        </div>
+
+        <div>
+            <label asp-for="StartTime">Please choose a Starting time:</label>
+            <input asp-for="StartTime" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" max="2023-12-31T23:59" required />
+            <span asp-validation-for="StartTime" class="field-validation-error"></span>
+        </div>
+
+        <div>
+            <label asp-for="EndTime">Please choose an end time:</label>
+            <input asp-for="EndTime" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" max="2023-12-31T23:59" required />
+            <span asp-validation-for="EndTime" class="field-validation-error"></span>
+        </div>
+
+        <input type="hidden" value="@ViewBag.SittingId" name="SittingId" />
+        <input type="submit" value="Save" />
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            $("#editForm").validate();
+        });
+    </script>
+}

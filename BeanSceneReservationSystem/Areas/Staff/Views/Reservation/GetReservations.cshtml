@@ -1,0 +1,109 @@
+﻿@model UpdateReservationsViewModel
+@{
+    ViewData["Title"] = "UpdateReservations";
+}
+
+<h1>Update Reservations</h1>
+
+<h1>All Reservations</h1>
+
+<table id="reservationTable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Start Time</th>
+            <th>Total Guest</th>
+            <th>Duration</th>
+            <th>Reservation Source</th>
+            <th>Reservation Status</th>
+            <th>Confirm</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model.Reservations)
+        {
+            <tr>
+                <td>@reservation.FirstName @reservation.LastName </td>
+
+                <td>
+                    @reservation.Email
+                </td>
+                <td>
+                    @reservation.PhoneNumber
+                </td>
+                <td>
+                    @reservation.StartTime
+                </td>
+                <td>
+                    @reservation.GuestNumber
+                </td>
+                <td>
+                    @reservation.Duration
+                </td>
+                <form asp-action="UpdateReservations" asp-controller="Reservations" asp-area="Staff">
+                <td>
+                    <input type="hidden" name="ReservationId"  value="@reservation.Id" />
+                    <select class="form-select" name="ReservationSourceId"  value="@reservation.ReservationSource.Id">
+                        <option selected="selected" hidden="hidden">@reservation.ReservationSource.Name</option>
+                            @foreach (var rs in Model.ReservationsSource)
+                            {
+                            <option value="@rs.Id" >@rs.Name</option>
+                            }
+                    </select>
+                </td>
+
+                <td>
+                    <input type="hidden" name="ReservationId" value="@reservation.Id" />
+                    <select class="form-select" name="ReservationStatusId" value="@reservation.ReservationStatus.Id">
+                        <option  selected="selected" hidden="hidden">@reservation.ReservationStatus.Name</option>
+                            @foreach (var status in Model.ReservationsStatus)
+                            {
+                            <option value="@status.Id">@status.Name</option>
+                            }
+                    </select>
+                </td>
+                
+                <td>
+                    <button class="btn btn-outline-primary" type="submit" asp-area="Staff" asp-action="UpdateReservations" asp-controller="Reservation">Confirm Changes</button>
+                </td>
+                </form>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-area="Staff" asp-controller="Reservation" asp-route-id="@reservation.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-area="Staff" asp-controller="Reservation" asp-route-id="@reservation.Id">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Start Time</th>
+            <th>Total Guest</th>
+            <th>Duration</th>
+            <th>Reservation Source</th>
+            <th>Reservation Status</th>
+            <th>Confirm</th>
+            <th>Update</th>
+        </tr>
+    </tfoot>
+</table>
+
+@section styles{
+    <link href="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#reservationTable').DataTable();
+        });
+    </script>
+}

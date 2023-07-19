@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Sitting>
+
+@{
+    ViewData["Title"] = "Sitting";
+}
+
+<style>
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .sitting-container {
+        display: inline-block;
+        width: 150px;
+        border: 1px solid #ffd700;
+        padding: 10px;
+        margin: 10px;
+        background-color: white;
+    }
+
+    .sitting-info {
+        margin-bottom: 5px;
+    }
+
+    .sitting-time {
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+    }
+
+    .sitting-date {
+        font-size: 12px;
+        color: black;
+    }
+
+    .btn-primary {
+        background-color: #ffd700;
+        border-color: #ffd700;
+        color: black;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 3px;
+        font-size: 12px;
+    }
+
+        .btn-primary:hover {
+            background-color: #ffc200;
+            border-color: #ffc200;
+        }
+</style>
+
+<h1>Sitting</h1>
+<label>
+    Please select the starting week:
+    <input type="date" name="reservationDate" id="reservationDateId"
+           value="@DateTime.Now.ToString("yyyy-MM-dd")"
+           min="@DateTime.Now.ToString("yyyy-MM-dd")" max="2023-12-31T23:59">
+    <!--Need to set max value to the end of the quarterly date-->
+</label>
+
+<h2>Select your Sitting Time</h2>
+@foreach (var m in Model)
+{
+    <div class="sitting-container">
+        <div class="sitting-info">
+            <p class="sitting-time">@m.Name</p>
+            <p class="sitting-time">@m.StartTime.TimeOfDay - @m.EndTime.TimeOfDay</p>
+            <p class="sitting-date">@m.StartTime.ToShortDateString()</p>
+        </div>
+        <a class="btn btn-primary" asp-action="Booking" asp-controller="Reservation" asp-route-id="@m.Id">Select</a>
+    </div>
+}

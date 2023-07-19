@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+        <h1 class="title">Employee</h1>
+    </div>
+
+    <div class="row justify-content-center align-items-center">
+        @*<img src="~/Images/toolsandresources_employeehandbook_quwttm (1).png" />*@
+        
+        <img src="~/images/employee.jpg" />
+    </div>
+
+</div>
+
+<div class="container-fluid-buttons">
+    <!-- Create a sitting button -->
+    <div class="row justify-content-center">
+        <div class="col-sm">
+            <p>Assign tables</p>
+                <a class="calendarButton" asp-action="Index" asp-controller="ReservationTable" asp-area="Staff">
+                <i class="bi bi-table icon"></i>
+                </a>
+        </div>
+
+        <div class="col-sm">
+            <p>Create A Booking</p>
+            <a class="calendarButton" asp-area="Staff" asp-controller="Reservation" asp-action="Sitting">
+                <i class="bi bi-plus-circle icon"></i>
+            </a>
+        </div>
+
+        <div class="col-sm">
+            <p>Manage Reservations</p>
+            <a class="calendarButton" asp-area="Staff" asp-controller="Reservation" asp-action="GetReservations">
+                <i class="bi bi-list icon"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .container-fluid {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px; /* Added margin-bottom */
+    }
+
+    .container-fluid-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* CSS styling for the buttons */
+    .icon {
+        font-size: 40px;
+    }
+
+    .calendarButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background-color: grey;
+        padding: 25px 75px;
+    }
+
+    .col-sm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+</style>

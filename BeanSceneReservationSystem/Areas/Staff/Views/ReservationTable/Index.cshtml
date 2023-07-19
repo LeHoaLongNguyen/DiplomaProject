@@ -1,0 +1,47 @@
+﻿<link href="~/css/custom.css" rel="stylesheet" />
+<h1>Reservation Table Map Plan</h1>
+
+<div class="container-fluid">
+    <div class="row">  
+        <div class="col-lg-1">
+            <button type="button" class="btn btn-primary" name="createTable" id="createTable">
+                Add a table
+            </button>
+
+            @*<button type="button" class="btn btn-primary" id="resetFloor">Reset Floor Plan</button>*@
+        </div>
+
+        <div class="col-lg-10">
+            <div id="reservation-tables-container"></div>
+        </div>
+
+        <div class="col-lg-1">
+            <div id="reservation-container"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/js/reservation.tables.js"></script>
+    <link href="~/css/custom.css" rel="stylesheet" />
+}

@@ -1,0 +1,67 @@
+﻿@model Reservation
+@{
+    ViewData["Title"] = "Booking Confirmation";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bookingContainer {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .value {
+            margin-bottom: 20px;
+        }
+
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bookingContainer">
+        <h1>Booking Confirmation</h1>
+
+        <div class="label">Reservation Details:</div>
+        <div class="value">
+            <div><span class="label">First Name:</span> @Model.FirstName</div>
+            <div><span class="label">Last Name:</span> @Model.LastName</div>
+            <div><span class="label">Email:</span> @Model.Email</div>
+            <div><span class="label">Guest Number:</span> @Model.GuestNumber</div>
+            <div><span class="label">Start Time:</span> @Model.StartTime</div>
+            <div><span class="label">Duration:</span> @Model.Duration</div>
+            <div><span class="label">Note:</span> @Model.Note</div>
+        </div>
+
+        <a href="@Url.Action("Index", "Home")" class="link">Home Page</a>
+    </div>
+</body>
+</html>

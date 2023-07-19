@@ -1,0 +1,76 @@
+﻿@model Reservation
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<div class="container d-flex justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-controller="Reservation" asp-area="Membership">
+            <div class="form-group">
+                <label for="StartTime">Choose a Time:</label>
+                <select class="form-control" name="startTime" id="StartTime" value="@Model.StartTime" required>
+                    @{
+                        DateTime startTime = Model.StartTime;
+                        DateTime endTime = Model.EndTime;
+                        while (startTime <= endTime)
+                        {
+                            <option value="@startTime">@startTime.ToShortTimeString()</option>
+                            startTime = startTime.AddMinutes(30);
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="FirstName">Enter your First Name:</label>
+                        <input type="text" class="form-control" name="firstName" id="FirstName" value="@Model.FirstName" required>
+                    </div>
+                    <div class="col">
+                        <label for="LastName">Enter Your Last name:</label>
+                        <input type="text" class="form-control" name="lastName" id="LastName" value="@Model.LastName" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="Email">Enter Your Email:</label>
+                        <input type="email" class="form-control" name="email" id="Email" value="@Model.Email" required>
+                    </div>
+                    <div class="col">
+                        <label for="PhoneNumber">Enter your Phone:</label>
+                        <input type="tel" class="form-control" name="phoneNumber" id="PhoneNumber" value="@Model.PhoneNumber" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Guests">Enter the amount of guests total:</label>
+                <input type="number" class="form-control" name="GuestNumber" id="GuestNumber" value="@Model.GuestNumber" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Duration">Duration:</label>
+                <input type="text" class="form-control" name="duration" id="Duration" value="@Model.Duration" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Notes">Any additional notes:</label>
+                <input type="text" class="form-control" name="Note" id="Note" value="@Model.Note"/>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Manage" asp-controller="Reservation" asp-area="Membership" class="btn btn-danger">Back to all reservations</a>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+

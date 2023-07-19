@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Warning";
+}
+
+<style>
+    /* Resetting font styles */
+    h1, h2, h3, input, form {
+        font-family: inherit;
+        font-weight: inherit;
+        font-style: inherit;
+    }
+
+    .container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    h1 {
+        font-size: 32px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 18px;
+        color: #999;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #dc3545;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <h1>Warning:</h1>
+    <h2>There are currently @ViewBag.ReservationCount Reservation(s) for this sitting.</h2>
+    <h3>Are you sure you want to cancel these reservations?</h3>
+    <div>
+        <form asp-action="Warning" asp-controller="Sitting" asp-area="Management">
+            <input type="hidden" />
+            <input type="submit" value="Cancel Reservations" class="btn btn-danger" />
+            <input type="hidden" value="@ViewBag.SittingId" name="id" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿@model UsersVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Users</h1>
+
+<table id="userTable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Assign Roles</th>
+            <th>Confirm</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName </td>
+
+                <td>@user.Email</td>
+
+                <td>
+                    @foreach (var role in Model.UserRoles[user.Id])
+                    {
+                        <span>@role</span>
+
+                        <br />
+                    }
+                </td>
+                <form asp-action="Index" asp-controller="User" asp-area="Management">
+                <td>
+                    <select class="form-select" name="role" id="StartTime">
+                        @foreach (var role in Model.Roles)
+                    {
+                            <option value="@role">@role</option>
+                    }
+                    </select>
+                </td>
+                <td>
+                    <input type="hidden" name="userEmail" value="@user.Email">
+                    <input type="submit" class="btn btn-primary" value="Confirm Changes" />
+                </td>
+                </form>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Assign Roles</th>
+            <th>Confirm</th>
+        </tr>
+    </tfoot>
+</table>
+
+@section styles{
+<link href="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable({
+                select: true
+            });
+        });
+    </script>
+
+}

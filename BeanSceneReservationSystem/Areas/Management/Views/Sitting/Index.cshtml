@@ -1,0 +1,94 @@
+﻿@model List<Sitting>
+
+
+
+<table id="sittingTable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Sittings</th>
+            <th>Start Time</th>
+            <th>End time</th>
+            <th>Date</th>
+            <th>Capacity</th>
+            <th>Vacancies</th>
+            <th>Active</th>
+            <th>Confirm</th>
+            <th>Update</th>
+         
+        </tr>
+    </thead>
+    <tbody>
+         @foreach (var m in Model)
+            {
+            <tr>
+                 <td>@m.SittingType.Name</td>
+                <td>
+                    @m.StartTime.TimeOfDay
+                </td>
+                <td>
+                    @m.EndTime.TimeOfDay
+                </td>
+                <td>
+                    @m.StartTime.ToShortDateString()
+                </td>
+                <td>
+                    @m.Capacity
+                </td>
+                <td>
+                     @m.Vacancies
+                </td>
+                <form asp-action="SetStatus" asp-area="Management" asp-controller="Sitting">
+                <td>
+
+                    <select class="form-select" name="status" value="@m.Active">
+                        <option selected="selected" hidden="hidden">@m.Active</option>
+                        <option value="@true">True</option>
+                        <option value="@false">False</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="hidden" name="sittingId" value="@m.Id">
+                    <button class="btn btn-outline-primary" type="submit" asp-action="SetStatus" asp-area="Management" asp-controller="Sitting">Confirm Changes</button>
+                </td>
+                </form>
+                <td>
+                        <a class="btn btn-primary" asp-action="Edit" asp-area="Management" asp-controller="Sitting" asp-route-id="@m.Id">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-area="Management" asp-controller="Sitting" asp-route-id="@m.Id">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Sittings</th>
+            <th>Start Time</th>
+            <th>End time</th>
+            <th>Date</th>
+            <th>Capacity</th>
+            <th>Vacancies</th>
+            <th>Active</th>
+            <th>Confirm</th>
+            <th>Update</th>
+        </tr>
+    </tfoot>
+</table>
+
+
+<div class="text-end">
+    <a asp-area="Management" asp-controller="Home" asp-action="Index">Return to home</a>
+</div>
+@section styles{
+<link href="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.css" rel="stylesheet" />
+}
+
+@section Scripts{
+
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sittingTable').DataTable();
+        });
+    </script>
+}

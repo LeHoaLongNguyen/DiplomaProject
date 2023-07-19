@@ -1,0 +1,82 @@
+﻿@model Sitting
+@{
+    ViewData["Title"] = "Booking";
+}
+
+<h1>Booking</h1>
+
+<h2>@ViewBag.SittingTypeName</h2>
+
+<div class="container d-flex justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Booking" asp-controller="Reservation" id="bookingForm">
+            <div class="form-group">
+                <label for="StartTime">Choose a Time:</label>
+                <select class="form-control" name="startTime" id="StartTime" required>
+                    @{
+                        DateTime startTime = Model.StartTime;
+                        DateTime endTime = Model.EndTime;
+                        while (startTime <= endTime)
+                        {
+                            <option value="@startTime">@startTime.ToShortTimeString()</option>
+                            startTime = startTime.AddMinutes(30);
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="FirstName">Enter your First Name:</label>
+                        <input type="text" class="form-control" name="firstName" id="FirstName" placeholder="First Name" required>
+                    </div>
+                    <div class="col">
+                        <label for="LastName">Enter Your Last name:</label>
+                        <input type="text" class="form-control" name="lastName" id="LastName" placeholder="Last Name" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="Email">Enter Your Email:</label>
+                        <input type="email" class="form-control" name="email" id="Email" required>
+                    </div>
+                    <div class="col">
+                        <label for="PhoneNumber">Enter your Phone:</label>
+                        <input type="tel" class="form-control" name="phoneNumber" id="PhoneNumber" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Guests">Enter the amount of guests total:</label>
+                <input type="number" class="form-control" name="guests" id="Guests" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Duration">Duration:</label>
+                <input type="text" class="form-control" name="duration" id="Duration" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Notes">Any additional notes:</label>
+                <textarea class="form-control" name="notes" id="Notes"></textarea>
+            </div>
+
+            <input type="hidden" name="sittingId" value="@ViewBag.sittingId" />
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Sitting" asp-controller="Reservation" class="btn btn-danger">Back to all sittings</a>
+                <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

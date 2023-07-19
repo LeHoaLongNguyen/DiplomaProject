@@ -1,0 +1,163 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Bean Scene</title>
+    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css">
+    @*<link href="~/css/custom.css" rel="stylesheet" />*@
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+
+    <link href="~/css/bootstraptemplate/vendor/animate.css/animate.min.css" rel="stylesheet" />
+    @*<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">*@
+    <link href="~/css/bootstraptemplate/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/css/bootstraptemplate/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="~/css/bootstraptemplate/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="~/css/bootstraptemplate/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    @RenderSection("styles",required:false)
+    <!-- Template Main CSS File -->
+    <link href="~/css/bootstraptemplate/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+            <div class="logo me-auto">
+                <h1><a asp-action="Index" asp-controller="Reservation">Bean Scene</a></h1>
+
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+            </div>
+            <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-action="Index" asp-controller="Reservation">Home</a>
+                </li>
+                @if (User.IsInRole("Manager"))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Management
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="Management" asp-controller="Home" asp-action="Index">Management Home</a></li>
+                            <li><a class="dropdown-item" asp-area="Management" asp-controller="Sitting" asp-action="Create">Create a sitting</a></li>
+                            <li><a class="dropdown-item" asp-area="Management" asp-controller="Sitting" asp-action="Index">Manage All Sittings</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="User" asp-area="Management">View Users</a></li>
+                                <li><a class="dropdown-item" asp-area="Management" asp-controller="Calender" asp-action="Index">View Calender</a></li>
+                                <li><a class="dropdown-item" asp-area="Management" asp-controller="Report" asp-action="Index">View Reports</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (User.IsInRole("Manager") || User.IsInRole("Staff"))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Employee
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="Staff" asp-controller="Home" asp-action="Index">Employee Home</a></li>
+                            <li><a class="dropdown-item" asp-area="Staff" asp-controller="Reservation" asp-action="Sitting">Create A Booking</a></li>
+                            <li><a class="dropdown-item" asp-area="Staff" asp-controller="Reservation" asp-action="GetReservations">Manage Reservations</a></li>
+                            <li><a class="dropdown-item" asp-area="Staff" asp-controller="ReservationTable" asp-action="Index">Table Layout Editor</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (User.IsInRole("Member") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Member</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" asp-area="Membership" asp-controller="Reservation" asp-action="Manage">Manage My Reservations</a>
+                            </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
+                                </li>
+
+                        </ul>
+
+                    </li>
+                }
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                      
+                        <li class="nav-item ">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Reservation", new { area = "" })">
+                                <button type="submit" class="nav-link btn btn-link text-white "> &nbsp &nbsp Logout</button>
+                            </form>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                        </li>
+                    }
+                </ul>
+
+          
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+
+        </div>
+    </header>
+
+    <div class="container-fluid gx-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer id="footer">
+        <div class="container">
+            <h3>Delicious</h3>
+            <p>Stay connected with us! Follow our social media channels to get the latest updates, special offers, and mouthwatering food pictures.</p>
+            <div class="social-links">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; Copyright <strong><span>Bean Scene</span></strong> <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </div>
+    </footer>
+   @* <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - BeanScene Restaurant - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Vendor JS Files -->
+    <script src="~/css/bootstraptemplate/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/css/bootstraptemplate/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/css/bootstraptemplate/vendor/swiper/swiper-bundle.min.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Sitting>
+@{
+    ViewData["Title"] = "Sitting";
+}
+
+<h1>Sitting</h1>
+
+@foreach(var m in Model){
+    
+    <div style="border:1px solid green; padding:5px; margin:5px">
+        <p>@m.SittingType.Name Start: @m.StartTime.TimeOfDay - End: @m.EndTime.TimeOfDay  @m.StartTime.ToShortDateString()</p>
+        @*<a href="~/Reservation/Sitting/@m.Id/Booking">Select</a>*@
+        <a href="~/Employee/Sitting/@m.Id/Edit"> Edit </a>
+    </div>
+}

@@ -1,0 +1,146 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url('/Images/FoodBackGround.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+
+    .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding-top: 100px;
+    }
+
+    .login-form {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .login-form h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+    .form-floating {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .form-floating input {
+            width: 100%;
+            height: 40px;
+            padding: 7px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .form-floating label {
+            position: absolute;
+            top: 50%;
+            left: 13px;
+            color: #6c757d;
+            font-size: 14px;
+            pointer-events: none;
+            transition: 0.2s;
+            transform: translateY(-50%);
+        }
+
+        .form-floating input:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+
+        .form-floating input:not(:placeholder-shown) + label {
+            top: 0;
+            transform: translateY(-20px);
+            font-size: 12px;
+            color: #007bff;
+        }
+
+    .form-check-input {
+        margin-right: 5px;
+    }
+
+    .login-submit-btn {
+        margin-top: 20px;
+    }
+
+    .forgot-password-link {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+    .register-link,
+    .resend-confirmation-link {
+        color: #6c757d;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        height:50px;
+        width: 100%;
+        background-color: #f8f8f8;
+        padding: 10px 20px;
+        text-align: center;
+    }
+    
+</style>
+
+<div class="container">
+    <div class="login-form">
+        <h1>@ViewData["Title"]</h1>
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.Email" class="form-label">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                <label asp-for="Input.Password" class="form-label">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    <label class="form-check-label" asp-for="Input.RememberMe">Remember me</label>
+                </div>
+            </div>
+            <div class="login-submit-btn">
+                <button id="login-submit" type="submit" class="w-100 btn btn-primary">Log in</button>
+            </div>
+            <div>
+                <p>
+                    <a class="forgot-password-link" asp-page="./ForgotPassword">Forgot your password?</a>
+                </p>
+                <p>
+                    <a class="register-link" asp-page="./Register">Register as a new user</a>
+                </p>
+                <p>
+                    <a class="resend-confirmation-link" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

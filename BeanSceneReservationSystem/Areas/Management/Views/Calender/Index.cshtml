@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div id='calendar'></div>
+
+
+@section styles{
+    <style>
+
+     /*   body {
+            margin: 40px 10px;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }*/
+
+        #calendar {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+    </style>
+}
+
+@section Scripts{
+    <script src="~/lib/fullcalender/dist/index.global.min.js"></script>
+    <script>
+        const now = new Date();
+
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+        const day = String(now.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek'
+                },
+                defaultView: 'timeGridWeek',
+                initialDate: formattedDate,
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectMirror: true,
+                select: function (arg) {
+                    var title = prompt('Event Title:');
+                    if (title) {
+                        calendar.addEvent({
+                            title: title,
+                            start: arg.start,
+                            end: arg.end,
+                            allDay: arg.allDay
+                        })
+                    }
+                    calendar.unselect()
+                },
+                eventClick: function (arg) {
+                    if (confirm('Are you sure you want to delete this event?')) {
+                        arg.event.remove()
+
+                    }
+                },
+                editable: true,
+                dayMaxEvents: true, // allow "more" link when too many events
+                events: 'https://localhost:7025/Management/Calender/Get'
+            });
+
+            calendar.render();
+        });
+
+    </script>
+}

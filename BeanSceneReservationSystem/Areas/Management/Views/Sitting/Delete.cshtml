@@ -1,0 +1,53 @@
+﻿@model BeanSceneReservationSystem.Data.Sitting
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<style>
+    .delete-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+        .delete-container h1,
+        .delete-container h3 {
+            font-family: inherit;
+        }
+
+        .delete-container form {
+            display: inline-block;
+        }
+
+        .delete-container input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .delete-container input[type="submit"]:hover {
+                background-color: #c82333;
+            }
+</style>
+
+<div class="delete-container">
+    <h1>Delete</h1>
+
+    <h3>Are you sure you want to delete:<br />@Model.Name @Model.StartTime @Model.EndTime?</h3>
+
+    <div>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+    </div>
+</div>
