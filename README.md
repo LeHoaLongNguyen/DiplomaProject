@@ -19,4 +19,4 @@ Email: Manager@test.com
 Password: Manager@test.com
 
 
-If there is no bookings, please run a migration
+If there is no bookings, please run a migration with EF core
