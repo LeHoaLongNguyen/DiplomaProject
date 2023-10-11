@@ -17,3 +17,6 @@ Access Steps:
 4. On the login page, enter the following account credentials:<br>
 Email: Manager@test.com
 Password: Manager@test.com
+
+
+If there is no bookings, please run a migration
